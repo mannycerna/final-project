@@ -1,22 +1,25 @@
 
 //global variables
+let pokeAPIurl = 'https://pokeapi.co/api/v2/pokemon/';  //the source api for data
 let game = document.querySelector('#game');  //mains used for css purposes
 let startBtn = document.querySelector('#startBtn');  //start buttons to start timer
 let stopBtn = document.querySelector('#stopBtn');  //stop button to stop timer
-// let timer = document.querySelector('#timer');
-// let restartBtn = document.querySelector('#button');
 let minutes = document.querySelector('#minutes');  //displays minutes in game and changes as timer initiates and runs
 let seconds = document.querySelector('#seconds');  //displays seconds in game and changes as timer initiates and runs
 let totalSeconds = 0; //sets the timer to begin at 0
 let totalScore = document.querySelector('#totalScore');  //holds total score for each match
 
-let pokeAPIurl = 'https://pokeapi.co/api/v2/pokemon/';  //the source api for data
 let isPaused = true;  //used to prevent player from being able to select more than two cards at once.  
 let firstPick;  //used to flag the first card user picks
 let matches;  //counter to add matching cards
-// let timerInterval;  //not used
 let check = null;  //variable points to timer to validate if timer has initiated
+
+
+// variables not used
+// let timerInterval;  //not used
 // let timerStatus = true; //not used initially used to stop timer
+// let timer = document.querySelector('#timer');  //not used initially used for timer functionality
+// let restartBtn = document.querySelector('#button');  //not used initial thought was to use a restart button
 
 
 //fetch data from api
@@ -35,16 +38,19 @@ let loadPokemon = async () => {
     return await Promise.all(responses.map(response => response.json()));
 }
 
-    //used promises all 
-    // let randomPokeIDArray = [...randomIDs];
-    // for(let i = 0; i < randomPokeIDArray.length; i++) {
-    //     let response = await fetch(pokeAPIurl + '1');
-    //     let pokemon = await response.json();
-    //     console.log(pokemon);  //Testing json output
+//Initially used code below, but decided to try out the promises all method above
+/*
+    let randomPokeIDArray = [...randomIDs];
+    for(let i = 0; i < randomPokeIDArray.length; i++) {
+        let response = await fetch(pokeAPIurl + '1');
+        let pokemon = await response.json();
+        console.log(pokemon);  //Testing json output
        
     
-    // console.log([...randomIDs]);
-    // return randomPokeIDArray, pokemon
+    console.log([...randomIDs]);
+    return randomPokeIDArray, pokemon
+*/
+
 
 //once json data is fetched this function uses another random method to retrieve 2 sets of 10 pokemon.  Retruns html used in creating the cards.
 
@@ -75,16 +81,15 @@ let displayPokemon = (pokemon) => {
  
 }
 
-/*Added event listener in order to click on the pokemon cards.  
+/*
+Added event listener in order to click on the pokemon cards.  
 User clicks two cards and they rotate (faceup/facedown).
 Then a matching check is initatied to see if they are the same.  
 If not same, then re-rotate.  
 Used timer function.
 True or False validation to flag rotation and prevent reselecting cards
-
-
-
 */
+
 let clickCard = (event) => {
     let pokemonCard = event.currentTarget;
     let [front, back] = getFrontBackCard(pokemonCard);  
@@ -94,10 +99,11 @@ let clickCard = (event) => {
     }
         isPaused = true;
 
+        //first version used to update front/back card class elements.  Used an array instead.
         // front.classList.toggle('rotated');
         // back.classList.toggle('rotated');
 
-        rotateElements([front, back]);
+        rotateElements([front, back]);  //function takes in the array and updated the rotation property
     
     if(!firstPick) {
         firstPick = pokemonCard;
@@ -128,7 +134,10 @@ let clickCard = (event) => {
         }
     // console.log(event.currentTarget.dataset.pokemon); //testing clicked event output
 }
+
+
 //function to initiate the rotation of cards by updating toggle method on the elements(cards).
+
 let rotateElements = (elements) => { /*console.log('inside rotate Elements funct');*/
     // if(typeof elements !== 'object' || !elements.length) return;
     elements.forEach(element => element.classList.toggle('rotated'));
@@ -150,6 +159,8 @@ let pad = (val) => {
 }
 
 let startTimer = () => {
+
+    //Attempt to change visibility of start/stop buttons.  If <Start timer btn> clicked then display <Stop timer btn> and hides <Start timer btn>
     // if (check === null){
     //     stopBtn.style.visibility = 'visible';
     // } else {
@@ -160,6 +171,8 @@ let startTimer = () => {
     seconds.innerHTML = pad(++totalSeconds%60);
     minutes.innerHTML = pad(parseInt(totalSeconds/60,10));
 }, 1000);
+
+    //Attempt to change visibility of start/stop buttons.  If <Stop timer btn> clicked then display <Start timer btn> and hides <Stop timer btn>
     // if (!timerStatus) {
     //     startBtn.innerHTML = 'Start timer';
     //     stopTimer();
@@ -167,51 +180,29 @@ let startTimer = () => {
     // restartBtn.setAttribute('onclick', null); \\might not need this after I refactor
 }
 
+
+// stop timer function to stop the timer (clearInterval)
 let stopTimer = () => {
 
         clearInterval(check);
+        
+        //continued...Attempt to change visibility of start/stop buttons.  If <Stop timer btn> clicked then display <Start timer btn> and hides <Stop timer btn>
 
         // startBtn.style.visibility = 'visible';
     } 
 
-    
-
-
-
-
-// let startTimer  = () => {
-//     setInterval(startTimer, 1000);
-//     ++totalSeconds;
-//     seconds.innerHTML = pad(totalSeconds % 60);
-//     minutes.innerHTML = pad(parseInt(totalSeconds / 60));
-    
-// }
-
-// let pad = (val) => {
-//     let valString = val + '';
-//     if (valString.length < 2){
-//         return '0' + valString;
-//     } else {
-//         return valString;
-//     }
-// }
-// setInterval(startTimer, 1000);
-// let timeTracker = setInterval(setTimer, 1000);
-
-// startTimer();
 
 //reset button resets all variables and html elements in order to restart a game
 let resetGame = async () => {
     totalSeconds = 0;
     check = null;
-    // startTimer();
     clearInterval();
     setTimeout( async() => {
         let pokemon = await loadPokemon();     
         displayPokemon([...pokemon, ...pokemon]);
         isPaused = false;
-        // startTimer()
-    // console.log('in reset');//testing
+       
+        // console.log('in reset');//testing
    
     },1000)
     game.innerHTML = '';
@@ -219,18 +210,13 @@ let resetGame = async () => {
     firstPick = null;
     matches = 0;
     
-
-    
 }
-
-
 
 //random function to randomize the return of pokemons in the api fetch call
 let  randNum = () => {
     let randomNumber = Math.ceil(Math.random() * 500);
     return randomNumber;
 }
-
 
 //resetGame function call.  In lieu of using the Fetch Pokemon Button.  Only use one or the other.
 resetGame();
