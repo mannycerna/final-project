@@ -1,6 +1,8 @@
 
 //global variables
 let game = document.querySelector('#game');
+let startBtn = document.querySelector('#startBtn');
+let stopBtn = document.querySelector('#stopBtn');
 // let timer = document.querySelector('#timer');
 // let restartBtn = document.querySelector('#button');
 let minutes = document.querySelector('#minutes');
@@ -14,7 +16,7 @@ let firstPick;
 let matches;
 let timerInterval;
 let check = null;  
-let status = true; //used to stop timer
+let timerStatus = true; //used to stop timer
 
 
 //fetch data from api
@@ -87,6 +89,7 @@ let clickCard = (event) => {
     let pokemonCard = event.currentTarget;
     let [front, back] = getFrontBackCard(pokemonCard);  
     if (front.classList.contains('rotated') ) {
+        startTimer();
         return; 
     }
         isPaused = true;
@@ -147,17 +150,31 @@ let pad = (val) => {
 }
 
 let startTimer = () => {
-    if ()
-
+    // if (check === null){
+    //     stopBtn.style.visibility = 'visible';
+    // } else {
+    //     stopBtn.style.visibility = 'visible';
+    // }
+    
     check = setInterval( function() {
     seconds.innerHTML = pad(++totalSeconds%60);
     minutes.innerHTML = pad(parseInt(totalSeconds/60,10));
 }, 1000);
+    // if (!timerStatus) {
+    //     startBtn.innerHTML = 'Start timer';
+    //     stopTimer();
+    // }
     // restartBtn.setAttribute('onclick', null); \\might not need this after I refactor
 }
 
 let stopTimer = () => {
-    clearInterval(check);
+    if (check !== null) {
+        clearInterval(check);
+        // startBtn.style.visibility = 'visible';
+    } 
+
+    
+
 }
 
 
