@@ -1,22 +1,22 @@
 
 //global variables
-let game = document.querySelector('#game');
-let startBtn = document.querySelector('#startBtn');
-let stopBtn = document.querySelector('#stopBtn');
+let game = document.querySelector('#game');  //mains used for css purposes
+let startBtn = document.querySelector('#startBtn');  //start buttons to start timer
+let stopBtn = document.querySelector('#stopBtn');  //stop button to stop timer
 // let timer = document.querySelector('#timer');
 // let restartBtn = document.querySelector('#button');
-let minutes = document.querySelector('#minutes');
-let seconds = document.querySelector('#seconds');
-let totalSeconds = 0;
-let totalScore = document.querySelector('#totalScore');
+let minutes = document.querySelector('#minutes');  //displays minutes in game and changes as timer initiates and runs
+let seconds = document.querySelector('#seconds');  //displays seconds in game and changes as timer initiates and runs
+let totalSeconds = 0; //sets the timer to begin at 0
+let totalScore = document.querySelector('#totalScore');  //holds total score for each match
 
-let pokeAPIurl = 'https://pokeapi.co/api/v2/pokemon/';
-let isPaused = true;
-let firstPick;
-let matches;
-let timerInterval;
-let check = null;  
-let timerStatus = true; //used to stop timer
+let pokeAPIurl = 'https://pokeapi.co/api/v2/pokemon/';  //the source api for data
+let isPaused = true;  //used to prevent player from being able to select more than two cards at once.  
+let firstPick;  //used to flag the first card user picks
+let matches;  //counter to add matching cards
+// let timerInterval;  //not used
+let check = null;  //variable points to timer to validate if timer has initiated
+// let timerStatus = true; //not used initially used to stop timer
 
 
 //fetch data from api
@@ -168,14 +168,15 @@ let startTimer = () => {
 }
 
 let stopTimer = () => {
-    if (check !== null) {
+
         clearInterval(check);
+
         // startBtn.style.visibility = 'visible';
     } 
 
     
 
-}
+
 
 
 // let startTimer  = () => {
@@ -202,6 +203,7 @@ let stopTimer = () => {
 //reset button resets all variables and html elements in order to restart a game
 let resetGame = async () => {
     totalSeconds = 0;
+    check = null;
     // startTimer();
     clearInterval();
     setTimeout( async() => {
