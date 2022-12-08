@@ -13,7 +13,8 @@ let isPaused = true;
 let firstPick;
 let matches;
 let timerInterval;
-let check = null;
+let check = null;  
+let status = true; //used to stop timer
 
 
 //fetch data from api
@@ -146,7 +147,9 @@ let pad = (val) => {
 }
 
 let startTimer = () => {
-check = setInterval( function() {
+    if ()
+
+    check = setInterval( function() {
     seconds.innerHTML = pad(++totalSeconds%60);
     minutes.innerHTML = pad(parseInt(totalSeconds/60,10));
 }, 1000);
@@ -210,8 +213,8 @@ let  randNum = () => {
 }
 
 
-//resetGame function call
-// resetGame();
+//resetGame function call.  In lieu of using the Fetch Pokemon Button.  Only use one or the other.
+resetGame();
 
 
 
