@@ -9,17 +9,7 @@
 ">
   <title>Document</title>
 </head>
-<body>  
-
-<!-- <div class="title">
-  <label id = "title">Poke-MATCH-mon</label>
-</div> -->
-    
-   
-
-   
-    <div class="container" id="game"></div>
-    
+<body>   
     
   <div class="container-timer" id="timer">
     <!-- <div id = "timer ">00:00 </div> -->
@@ -27,7 +17,7 @@
     
     <button id="resetBtn" class="button" type="button" onclick='resetGame()'> Fetch Pokemon </button>
     <br>
-    <span> <label id="minutes">00</label>:<label id="seconds">00</label></span>
+    <span> <label class="clock" id="minutes">00</label>:<label class="clock" id="seconds">00</label></span>
     
     <button id="startBtn" class="button" type="button" onclick='startTimer()'> Start Timer</button>
     <br>
@@ -35,9 +25,12 @@
     <br>
     <label id="labelScore">Score</label>
     <div contentEditable=true id='totalScore'></div>
-   
+    <br>
+    <span><div style="visibility: hidden" id="msgWinner"> "Winner, Winner, Pokemon Dinner!!!"</div></span>
   </div>
 
+  <div class="container" id="game"></div>
+  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js
     "></script>
     <script src="main.js"></script>

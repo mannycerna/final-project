@@ -113,8 +113,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 73vh;
   flex-direction: column;
+  /* flex-direction: row; */
   /* background: #e9c46a; */
  }
 
@@ -143,5 +144,9 @@ body {
   text-align: center; 
   
   }
+
+ #msgWinner {
+   font-size: 10rem;
+ }
 
 
