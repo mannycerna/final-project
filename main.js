@@ -39,6 +39,7 @@ let loadPokemon = async () => {
     let pokePromises = [...randomIDs].map(id => fetch(pokeAPIurl + id));
     let responses = await Promise.all(pokePromises);
     return await Promise.all(responses.map(response => response.json()));
+
 }
 
 //Initially used code below, but decided to try out the promises all method above
@@ -52,7 +53,7 @@ let loadPokemon = async () => {
     
     console.log([...randomIDs]);
     return randomPokeIDArray, pokemon
-*/
+*/ 
 
 
 //displayPokemon function uses another random method to reshuffle pokemon so that both card sets are not in same order.  Using .map method it iterates thru the randomized data, returning html elements with assigned properties/values, and storing in a variable (pokemonHTML).  The DOM gets updated by assigning <pokemonHTML> to the <game.innerHTML> variable.  <displayPokemon> will be called by the resetGame function in order to 
@@ -60,7 +61,7 @@ let loadPokemon = async () => {
 let displayPokemon = (pokemon) => {
    console.log(pokemon);  //Testing output
    pokemon.sort ( _ => Math.random() - 0.5);
-   pokemon.map(pokemon => console.log(pokemon.name));
+   pokemon.map(pokemon => console.log(pokemon.name));//testing logging output
    let pokemonHTML = pokemon.map(pokemon => {
 
     
@@ -69,7 +70,6 @@ let displayPokemon = (pokemon) => {
             data-pokename = "${pokemon.name}">
             <div class="front"></div>
             <div class="back rotated">
-                
                 <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt=${pokemon.name}/>
                 <h1>${pokemon.name}</h1>
             </div>
@@ -236,6 +236,13 @@ let  randNum = () => {
 
 //resetGame function call.  In lieu of using the Fetch Pokemon Button.  Only use one or the other.
 // resetGame();
+
+
+//Credits:
+//https://www.jamesqquick.com/blog/
+// https://dev.to/ania_kubow/the-javascript-method-setinterval-explained-in-5-minutes-117f
+// https://www.devcurry.com/2010/08/execute-function-at-regular-intervals.html
+
 
 
 

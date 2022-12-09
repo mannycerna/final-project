@@ -77,7 +77,8 @@ padding:100px;
  }
 
  .front:hover{
-    background-color: rgba(97, 98, 155, 0.765);
+    background-color: rgba(61, 62, 140, 0.765);
+    cursor: pointer;
  }
 
  .front, .back { 
@@ -96,8 +97,8 @@ padding:100px;
 
  .front {
     border-radius: 20px;
-    /* background-image: url("/Pokemon_Balloon.jpeg"); */
-    background-image: url("/Greyson.png");
+    background-image: url("/Pokemon_Balloon.jpeg");
+
     background-position: center;
     background-repeat:no-repeat;
     background-color: rgb(61, 149, 166);
