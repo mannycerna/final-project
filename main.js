@@ -110,7 +110,7 @@ let clickCard = (event) => {
         rotateElements([front, back]);  //function takes in the array and updated the rotation property
     
 
-    //this if statement asks if this is not the first card then it is the second card selected.
+    //this if statement asks if this is not the first card then it is the second card selected.  
     if(!firstPick) {
         firstPick = pokemonCard;
         isPaused = false;
@@ -118,6 +118,7 @@ let clickCard = (event) => {
             let secondPokemon = pokemonCard.dataset.pokename;
             let firstPokemon = firstPick.dataset.pokename;
 
+            //if condition (if cards do not match) then flip back
             if(firstPokemon !== secondPokemon) {
                 let [firstFront, firstBack] = getFrontBackCard(firstPick);
                 setTimeout(() => { console.log('inside setTimeout');
@@ -125,11 +126,11 @@ let clickCard = (event) => {
                     firstPick = null;
                     isPaused = false;
                 }, 500)
-            }  else {
+            }  else { //else if pokemon match, increment matches variable, update total score
                 matches++;
                 totalScore.innerHTML = matches;
                 console.log(totalScore);
-                if(matches === 10){
+                if(matches === 10){ //if all pokemon match then call stopTimer(), Display message
                     stopTimer();
                     youWinMsg.style.visibility='visible';
                     // console.log("Winner, Winner, Pokemon Dinner!!!")
@@ -167,7 +168,7 @@ let pad = (val) => {
 }
 
 
-//startTimer's purpose is to initiate a timer by using the setInterval method and setting it to milliseconds of 1000.
+//startTimer function's purpose is to initiate a timer by using the setInterval method and using the milliseconds.  I set this to interval of 1000 milliseconds.
 let startTimer = () => {
 
     //Attempt to change visibility of start/stop buttons.  If <Start timer btn> clicked then display <Stop timer btn> and hides <Start timer btn>
@@ -191,7 +192,7 @@ let startTimer = () => {
 }
 
 
-// stop timer function to stop the timer (clearInterval)
+// stop timer function's purpose is to stop the timer (clearInterval)
 let stopTimer = () => {
 
         clearInterval(check);
@@ -202,7 +203,7 @@ let stopTimer = () => {
     } 
 
 
-//reset button resets all variables and html elements in order to restart a game.  The setTimout fucntion calls displayPokemon with two paramaters to return to sets of pokemon.
+//resetGame function's purpose is to resets all variables and html elements in order to restart a game.  The setTimout function calls displayPokemon with two paramaters which returns to sets of pokemon.  Used milliseconds of 1000 time to reset game.
 //
 let resetGame = async () => {
     totalSeconds = 0;
@@ -215,6 +216,7 @@ let resetGame = async () => {
     firstPick = null;
     matches = 0;
     totalScore.innerHTML = 0;
+    youWinMsg.style.visibility='hidden';
 
     setTimeout( async() => {
         let pokemon = await loadPokemon();     
@@ -233,7 +235,7 @@ let  randNum = () => {
 }
 
 //resetGame function call.  In lieu of using the Fetch Pokemon Button.  Only use one or the other.
-resetGame();
+// resetGame();
 
 
 
